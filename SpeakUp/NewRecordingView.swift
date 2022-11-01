@@ -8,6 +8,8 @@ struct NewRecordingView: View {
     @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
     
+    
+    @State private var selectedLanguage: [SupportedLanguage]
 
     
     
@@ -19,7 +21,13 @@ struct NewRecordingView: View {
             switch recorder.recordingState {
             case .waiting:
                 VStack{
-
+                    Picker("Please choose a language", selection: $selectedLanguage) {
+                        ForEach(recorder.supportedLanguage(), id: \.self) {
+                            Text($0.name ?? "nope")
+                        }
+                    }
+                    Text("You selected: \(selectedLanguage.description )")
+                    
                     Button(action: recorder.requestRecordingPermission) {
                         
                         
