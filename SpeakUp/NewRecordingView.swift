@@ -9,34 +9,44 @@ import SwiftUI
 
 struct NewRecordingView: View {
     @StateObject private var recorder = Recorder()
-    @EnvironmentObject var dataController : DataController
+    @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
+
     var body: some View {
         VStack {
             switch recorder.recordingState {
             case .waiting:
                 Button(action: recorder.requestRecordingPermission) {
-                    Label("Start Recording", systemImage:
-                    "record.circle")
-                    .font(.title)
+                    Label("Start Recording", systemImage: "record.circle")
+                        .font(.title)
                 }
-            case .recording :
-                Button(role: .destructive, action: recorder.stopRecording) {
+
+            case .recording:
+                Button(action: recorder.stopRecording) {
                     Label("Stop Recording", systemImage: "stop.circle")
+                        .font(.title)
                 }
+
             case .transcribing:
-                VStack{
-                    Text("Transcribing...")
+                VStack {
+                    Text("Transcribing…")
                     ProgressView()
                 }
+
             case .complete(let recording):
-                VStack{
-                    ScrollView{
+                VStack {
+                    ScrollView {
                         Text(recording.transcription)
                             .padding()
                     }
+
+                    Button("Save") {
+                        dataController.add(recording: recording)
+                        dismiss()
+                    }
                 }
             }
+
             Text(recorder.errorMessage)
         }
     }
@@ -44,6 +54,7 @@ struct NewRecordingView: View {
 
 struct NewRecordingView_Previews: PreviewProvider {
     static var previews: some View {
-        NewRecordingView().environmentObject(DataController())
+        NewRecordingView()
+            .environmentObject(DataController())
     }
 }
