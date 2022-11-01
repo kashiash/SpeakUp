@@ -2,7 +2,7 @@
 //  NewRecordingView.swift
 //  SpeakUp
 //
-//  Created by Jacek Kosinski U on 01/11/2022.
+//  Created by Paul Hudson on 25/09/2022.
 //
 
 import SwiftUI

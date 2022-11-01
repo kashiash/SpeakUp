@@ -2,7 +2,7 @@
 //  Recorder.swift
 //  SpeakUp
 //
-//  Created by Jacek Kosinski U on 31/10/2022.
+//  Created by Paul Hudson on 25/09/2022.
 //
 
 import AVFoundation
