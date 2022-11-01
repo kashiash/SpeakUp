@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var dataController = DataController()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack{
+            List{
+                ForEach(dataController.filteredRecordings,
+                    content: RecordingView.init)
+                        .onDelete(perform: dataController.delete)
+                }
+            .searchable(text: $dataController.filter)
+            .navigationTitle("Speak Up!")
+            .toolbar{
+                Button{
+                    print("Make new recording")
+                } label: {
+                    Label("New Recording",systemImage: "plus")
+                }
+            }
+            .environmentObject(dataController)
         }
-        .padding()
     }
 }
 

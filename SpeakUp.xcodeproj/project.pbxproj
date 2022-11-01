@@ -11,6 +11,10 @@
 		761C112F29104E950014B139 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C112E29104E950014B139 /* ContentView.swift */; };
 		761C113129104E960014B139 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 761C113029104E960014B139 /* Assets.xcassets */; };
 		761C113529104E960014B139 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 761C113429104E960014B139 /* Preview Assets.xcassets */; };
+		761C113C29104F600014B139 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C113B29104F600014B139 /* Recording.swift */; };
+		761C113E2910509E0014B139 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C113D2910509E0014B139 /* DataController.swift */; };
+		761C114029105CFD0014B139 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C113F29105CFD0014B139 /* RecordingView.swift */; };
+		761C114229105E860014B139 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C114129105E860014B139 /* Recorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		761C113029104E960014B139 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		761C113229104E960014B139 /* SpeakUp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeakUp.entitlements; sourceTree = "<group>"; };
 		761C113429104E960014B139 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		761C113B29104F600014B139 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		761C113D2910509E0014B139 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		761C113F29105CFD0014B139 /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
+		761C114129105E860014B139 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,10 @@
 				761C113029104E960014B139 /* Assets.xcassets */,
 				761C113229104E960014B139 /* SpeakUp.entitlements */,
 				761C113329104E960014B139 /* Preview Content */,
+				761C113B29104F600014B139 /* Recording.swift */,
+				761C113D2910509E0014B139 /* DataController.swift */,
+				761C113F29105CFD0014B139 /* RecordingView.swift */,
+				761C114129105E860014B139 /* Recorder.swift */,
 			);
 			path = SpeakUp;
 			sourceTree = "<group>";
@@ -140,7 +152,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				761C112F29104E950014B139 /* ContentView.swift in Sources */,
+				761C114029105CFD0014B139 /* RecordingView.swift in Sources */,
+				761C113E2910509E0014B139 /* DataController.swift in Sources */,
+				761C114229105E860014B139 /* Recorder.swift in Sources */,
 				761C112D29104E950014B139 /* SpeakUpApp.swift in Sources */,
+				761C113C29104F600014B139 /* Recording.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
