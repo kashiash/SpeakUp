@@ -9,23 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var dataController = DataController()
+    @State private var isShownigRecordSheet = false
     
     var body: some View {
         NavigationStack{
             List{
                 ForEach(dataController.filteredRecordings,
-                    content: RecordingView.init)
-                        .onDelete(perform: dataController.delete)
-                }
+                        content: RecordingView.init)
+                .onDelete(perform: dataController.delete)
+            }
             .searchable(text: $dataController.filter)
             .navigationTitle("Speak Up!")
             .toolbar{
                 Button{
-                    print("Make new recording")
+                    isShownigRecordSheet = true
                 } label: {
                     Label("New Recording",systemImage: "plus")
                 }
             }
+            .sheet(isPresented: $isShownigRecordSheet, content: NewRecordingView.init)
             .environmentObject(dataController)
         }
     }
