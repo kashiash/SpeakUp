@@ -72,12 +72,13 @@ class Recorder: ObservableObject {
     private func transcribe() {
         recordingState = .transcribing
 
-        let recognizer = SFSpeechRecognizer()
+        let recognizer = SFSpeechRecognizer(locale : Locale.init(identifier: "pl"))
 
         let request = SFSpeechURLRecognitionRequest(url: temporaryURL)
         request.requiresOnDeviceRecognition = true
         request.shouldReportPartialResults = false
         request.addsPunctuation = true
+        
         request.taskHint = .dictation
 
         recognizer?.recognitionTask(with: request) { result, error in
