@@ -24,18 +24,50 @@ class Recorder: ObservableObject{
     @Published var errorMessage = ""
     
     func requestRecordingPermission() {
-        
+        recordingSession.requestRecordPermission(){ allowed in
+            DispatchQueue.main.async {
+                if allowed {
+                    self.requestTranscribePermission()
+                } else {
+                    self.errorMessage = "You need to grant recording permission."
+                }
+            }
+        }
     }
     
     private func requestTranscribePermission(){
-        
+        SFSpeechRecognizer.requestAuthorization { status in
+            DispatchQueue.main.async {
+                if status == .authorized {
+                    self.startRecording()
+                } else {
+                    self.errorMessage = "You need to grant transcribing permission."
+                }
+            }
+        }
     }
     private func startRecording() {
-        
+        let settings = [
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 1
+            
+        ]
+        do {
+            try recordingSession.setCategory(.playAndRecord)
+            try recordingSession.setActive(true)
+            audioRecorder = try AVAudioRecorder(url: temporaryURL, settings: settings)
+            audioRecorder?.record()
+            recordingState = .recording
+            
+        } catch {
+            errorMessage = "Failed to configure your device for recording \(error.localizedDescription)"
+        }
     }
     
     func stopRecording(){
-        
+        audioRecorder?.stop()
+        transcribe()
     }
     
     private func transcribe() {
