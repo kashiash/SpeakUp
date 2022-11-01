@@ -15,8 +15,8 @@ import Speech
 class Recorder: ObservableObject{
     
     enum RecordingState{
-    case waiting,recording,transcribing,complete(Recording)
-}
+        case waiting,recording,transcribing,complete(Recording)
+    }
     @Published var recordingState = RecordingState.waiting
     private var recordingSession = AVAudioSession.sharedInstance()
     private var audioRecorder: AVAudioRecorder?
@@ -71,6 +71,32 @@ class Recorder: ObservableObject{
     }
     
     private func transcribe() {
+        recordingState = .transcribing
+        let recognizer = SFSpeechRecognizer()
+        let request = SFSpeechURLRecognitionRequest(url: temporaryURL)
+        request.requiresOnDeviceRecognition = true
+        request.shouldReportPartialResults = false
+        request.addsPunctuation = true
+        request.taskHint = .dictation
         
+        recognizer?.recognitionTask(with: request) { result, error in
+            guard let result else {
+                self.errorMessage = error?.localizedDescription ?? "Unknown error"
+                return
+            }
+            let id = UUID()
+            let filename = "\(id.uuidString).m4a"
+            let recording = Recording(id: id, date: .now, filename: filename, transcription: result.bestTranscription.formattedString)
+            
+            
+            do {
+                let newURL = URL.documentsDirectory.appending(path: filename)
+                try FileManager.default.moveItem(at: self.temporaryURL, to: newURL)
+                self.recordingState = .complete(recording)
+            } catch {
+                self.errorMessage = "Failed to trenscribe your audio: \(error.localizedDescription)"
+                self.recordingState = .waiting
+            }
+        }
     }
 }
