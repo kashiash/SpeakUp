@@ -1,26 +1,32 @@
-//
-//  NewRecordingView.swift
-//  SpeakUp
-//
-//  Created by Paul Hudson on 25/09/2022.
-//
+
 
 import SwiftUI
 
 struct NewRecordingView: View {
+
     @StateObject private var recorder = Recorder()
     @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
+    
 
+    
+    
+
+    
     var body: some View {
+      
         VStack {
             switch recorder.recordingState {
             case .waiting:
-                Button(action: recorder.requestRecordingPermission) {
-                    Label("Start Recording", systemImage: "record.circle")
-                        .font(.title)
-                }
+                VStack{
 
+                    Button(action: recorder.requestRecordingPermission) {
+                        
+                        
+                        Label("Start Recording", systemImage: "record.circle")
+                            .font(.title)
+                    }
+                }
             case .recording:
                 Button(action: recorder.stopRecording) {
                     Label("Stop Recording", systemImage: "stop.circle")
@@ -52,9 +58,4 @@ struct NewRecordingView: View {
     }
 }
 
-struct NewRecordingView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewRecordingView()
-            .environmentObject(DataController())
-    }
-}
+

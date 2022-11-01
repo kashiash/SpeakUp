@@ -17,7 +17,7 @@ class Recorder: ObservableObject {
 
     private var recordingSession = AVAudioSession.sharedInstance()
     private var audioRecorder: AVAudioRecorder?
-    private let temporaryURL = URL.documentsDirectory.appending(path: "recording.m4a")
+    private let temporaryURL = URL.documentsDirectory.appending(path: "recordingzz.m4a")
 
     @Published var errorMessage = ""
 
@@ -68,6 +68,20 @@ class Recorder: ObservableObject {
         audioRecorder?.stop()
         transcribe()
     }
+    
+    func supportedLanguage() -> [SupportedLanguage]
+    {
+        
+        var availableLanguages: [SupportedLanguage] = []
+        for locale in SFSpeechRecognizer.supportedLocales() {
+            let language = SupportedLanguage (
+                code: locale.language.languageCode?.identifier,
+                name: Locale.init(identifier: "en").localizedString(forIdentifier: locale.identifier)
+            )
+            availableLanguages.append(language)
+        }
+        return availableLanguages
+    }
 
     private func transcribe() {
         recordingState = .transcribing
@@ -75,7 +89,7 @@ class Recorder: ObservableObject {
         let recognizer = SFSpeechRecognizer(locale : Locale.init(identifier: "pl"))
 
         let request = SFSpeechURLRecognitionRequest(url: temporaryURL)
-        request.requiresOnDeviceRecognition = true
+        request.requiresOnDeviceRecognition = false
         request.shouldReportPartialResults = false
         request.addsPunctuation = true
         
